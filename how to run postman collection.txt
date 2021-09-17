@@ -1,0 +1,4 @@
+1. install newman -> npm install -g newman
+2. export collection and global enviroment
+3. install html reporter-> npm install -g newman-reporter-htmlextra
+4. run collection-> newman run collection.json -g globals.json -r htmlextra

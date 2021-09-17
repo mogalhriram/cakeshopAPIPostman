@@ -1,0 +1,34 @@
+{
+	"id": "9b59b86f-6c27-40bf-8110-7415184d868e",
+	"values": [
+		{
+			"key": "token",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "email",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "username",
+			"value": "",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "Pass@123",
+			"enabled": true
+		},
+		{
+			"key": "baseurl",
+			"value": "http://127.0.0.1:8000/api",
+			"enabled": true
+		}
+	],
+	"name": "GEMS Training Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-09-15T10:53:15.083Z",
+	"_postman_exported_using": "Postman/8.11.1"
+}

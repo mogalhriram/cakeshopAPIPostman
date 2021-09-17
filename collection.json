@@ -1,0 +1,1026 @@
+{
+	"info": {
+		"_postman_id": "87d22220-5e71-4a3b-a8c4-176c36fb53ca",
+		"name": "Cake_Shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/allcakes",
+			"item": [
+				{
+					"name": "RQ01 get all cakes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/allcakes/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"allcakes",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/cake",
+			"item": [
+				{
+					"name": "RQ02 get cake with id 11",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Item loaded successfully..\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate cakeid is 11\", function () {\r",
+									"    pm.expect(jsonData.data.cakeid).to.eql(11);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/cake/11",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"cake",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ03 get cake with id 12",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Item loaded successfully..\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate cakeid is 12\", function () {\r",
+									"    pm.expect(jsonData.data.cakeid).to.eql(12);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/cake/12",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"cake",
+								"12"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/login",
+			"item": [
+				{
+					"name": "RQ04 login with valid credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.globals.set(\"token\", jsonData.token);\r",
+									"\r",
+									"pm.globals.set(\"email\", jsonData.email);\r",
+									"\r",
+									"pm.globals.set(\"username\", jsonData.username);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "Pass@123",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "shree.s.mogal@gmail.com",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"vachaudhari008@gmail.com\",\r\n    \"password\": \"Pass@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/login/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ05 login with invalid credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the msg unable to login\", function () {\r",
+									"    pm.expect(jsonData.non_field_errors[0]).to.eql( \"Unable to log in with provided credentials.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"shree.s.mogal@gmail.com\",\r\n    \"password\": \"Pass@12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/login/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ06 login with no credentials",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									" var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate the required msg for username\", function () {\r",
+									"    pm.expect(jsonData.username[0]).to.eql(\"This field is required.\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate the required msg for password\", function () {\r",
+									"    pm.expect(jsonData.username[0]).to.eql(\"This field is required.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/login/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/register",
+			"item": [
+				{
+					"name": "RQ07 register  new user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Check msg user Registered\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User Registered\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"vachaudhari000n111@gmail.com\",\r\n    \"password\": \"Pass@123\",\r\n    \"username\": \"vachaudhari000n111@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/register/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ08 re-register  existing user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Validate msg user Already Exist\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"User Already Exist!!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\",\r\n    \"username\": \"{{username}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/register/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ09 register  user with incomplete payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"\r",
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"vachaudhari00@gmail.com\",\r\n    \"password\": \"Pass@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/register/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ10 register without payload",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseurl}}/register/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"register",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/addcaketocart",
+			"item": [
+				{
+					"name": "RQ11 add cake to cart with valid authorization token cakeid=10",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg Added to cart\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Added to  cart\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cakeid\": 10,\r\n    \"name\": \"Chohcolate Cheese Cake\",\r\n    \"price\": 1200,\r\n    \"weight\": 3.0,\r\n    \"image\": \"http://localhost:8000/media/images/cake13.jpg\",\r\n    \"email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/addcaketocart/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"addcaketocart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ12 add cake to cart with valid authorization cakeid=12",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg Added to cart\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Added to  cart\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cakeid\": 12,\r\n    \"name\": \"Chocolava special\",\r\n    \"price\": 599,\r\n    \"weight\": 2.0,\r\n    \"image\": \"http://127.0.0.1:8000/media/images/cake16.jpg\",\r\n    \"email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/addcaketocart/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"addcaketocart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ13 add cake to cart with invalid authorization",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg Invalid Token\", function () {\r",
+									"    pm.expect(jsonData.detail).to.eql(\"Invalid token.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token f9bd29f45d1ba987c73a85160cc19b49fdb576c",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cakeid\": 10,\r\n    \"name\": \"Chohcolate Cheese Cake\",\r\n    \"price\": 1200,\r\n    \"weight\": 3.0,\r\n    \"image\": \"http://localhost:8000/media/images/cake13.jpg\",\r\n    \"email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/addcaketocart/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"addcaketocart",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/cart",
+			"item": [
+				{
+					"name": "RQ14 get cakes from cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg CartItems loaded successfully..\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"CartItems loaded successfully..\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/cart/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"cart",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ15 get cakes from cart -invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 401 Unauthorized\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg CartItems loaded successfully..\", function () {\r",
+									"    pm.expect(jsonData.detail).to.eql(\"Invalid token.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token f9bd29f45d1a987c73a85160cc19b49fdb576ce",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"vachaudhari007@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/cart/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"cart",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/removefromcart",
+			"item": [
+				{
+					"name": "RQ16 remove item from cart - existing item in cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"  var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg Removed  item from cart\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Removed  item from cart\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cakeid\": 10,\r\n    \"email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/removefromcart/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"removefromcart",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/placeorder",
+			"item": [
+				{
+					"name": "RQ17 placeorder-cake which is in cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg order placed\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"order placed\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{email}}\",\r\n    \"phone\": \"4762839582\",\r\n    \"address\": \"12, Prabhat Nagar, Jalgaon\",\r\n    \"pincode\": \"456273\",\r\n    \"city\": \"Jalgaon\",\r\n    \"email\": \"{{email}}\",\r\n    \"cakes\": [\r\n       {\r\n            \"id\": 22,\r\n            \"cakeid\": 12,\r\n            \"orderdate\": \"2021-09-14T16:55:12.579205Z\",\r\n            \"image\": \"http://127.0.0.1:8000/media/images/cake16.jpg\",\r\n            \"name\": \"Chocolava special\",\r\n            \"price\": 599,\r\n            \"quantity\": 1,\r\n            \"weight\": 2.0,\r\n            \"email\": \"{{email}}\",\r\n            \"ordered\": false\r\n        }\r\n        ],\r\n    \"price\":400    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/placeorder/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"placeorder",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RQ18 placeorder-cake which is not in cart",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400 Bad Request\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg Object does not exists\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.cakes[0]).to.eql(\"Invalid pk \\\"215\\\" - object does not exist.\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"{{email}}\",\r\n    \"phone\": \"4762839582\",\r\n    \"address\": \"12, Prabhat Nagar, Jalgaon\",\r\n    \"pincode\": \"456273\",\r\n    \"city\": \"Jalgaon\",\r\n    \"email\": \"{{email}}\",\r\n    \"cakes\": [\r\n       {\r\n            \"cakeid\": 20,\r\n            \"email\": \"vachaudhari007@gmail.com\",\r\n            \"id\": 215,\r\n            \"image\": \"http://localhost:8000/media/images/cake16.jpg\", \r\n            \"name\": \"Chocolava special\", \r\n            \"orderdate\": \"2021-09-15T08:57:02.293998Z\", \r\n            \"ordered\": false,\r\n            \"price\": 400,\r\n            \"quantity\":1,\r\n            \"weight\": 4\r\n        }\r\n\r\n        ],\r\n    \"price\":400    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/placeorder/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"placeorder",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/myorders",
+			"item": [
+				{
+					"name": "RQ19 get order list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Status code is 200 Ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check ordered param -> true\", function () {\r",
+									"    pm.expect(jsonData.cakeorders[0].cakes[0].ordered).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/myorders/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"myorders",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/resetpass",
+			"item": [
+				{
+					"name": "RQ20 reset password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200 ok\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validate msg success\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(\"success\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token f9bd29f45d1ba987c73a85160cc19b49fdb576ce",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{email}}\",\r\n    \"password\": \"{{password}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/resetpass/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"resetpass",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
